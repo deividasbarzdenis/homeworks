@@ -1,0 +1,47 @@
+Table customer as U {
+  user_id int [pk, increment] // auto-increment
+  name varchar
+  lastname varchar
+}
+
+Table account {
+  account_id int [pk, increment]
+  account_Number varchar
+  currency varchar
+  balance int
+  user_id int//[PF]
+  bank_id int//[PF]
+ }
+ 
+ Table bank {
+   bank_id int [pk, increment]
+   name varchar
+   user_id int//[PF]
+ }
+ 
+ Table contact {
+   contact_id int [pk, increment]
+   email varchar
+   phone_Number varchar
+   user_id int //[PF]
+   bank_id int //[PF]
+ }
+ 
+ Table address {
+   address_id int [pk, increment]
+   street varchar
+   house_Number varchar
+   zip_Code varchar
+   city varchar
+   registered bit
+   user_id int //[PF]
+   bank_id int //[PF]
+ }
+
+Ref: U.user_id < account.user_id  
+Ref: U.user_id < bank.user_id
+Ref: U.user_id < contact.user_id
+Ref: U.user_id < address.user_id
+Ref: bank.bank_id < account.bank_id
+Ref: bank.bank_id < contact.bank_id
+Ref: bank.bank_id < address.bank_id

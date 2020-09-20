@@ -1,0 +1,33 @@
+--1. SELECT ASMENSKODAS, VARDAS, PAVARDE FROM DARBUOTOJAS  where  GIMIMOMETAI = '1988-07-20';
+--2. SELECT * FROM DARBUOTOJAS  where  GIMIMOMETAI <'1988-07-29';
+--3. SELECT DIRBANUO, GIMIMOMETAI  FROM DARBUOTOJAS  where DIRBANUO between '2009-10-30' and '2012-11-11';
+--4. select VARDAS, SKYRIUS_PAVADINIMAS, PROJEKTAS_ID from DARBUOTOJAS WHERE PROJEKTAS_ID IN(2, 3);
+ --5. SELECT vardas, pavarde, asmenskodas FROM darbuotojas where vardas LIKE '%a';
+--6. SELECT * FROM darbuotojas WHERE gimimometai LIKE '%12';
+--7. SELECT * FROM projektas where pavadinimas LIKE '__u%';
+--8. SELECT * FROM darbuotojas WHERE pareigos  IS NULL;
+--9. SELECT * FROM darbuotojas WHERE dirbanuo > '2011-02-12' AND pareigos = 'Programuotojas';
+--10. SELECT vardas, pavarde, skyrius_pavadinimas, projektas_id FROM darbuotojas WHERE skyrius_pavadinimas = 'Java' OR projektas_id = 1;
+--11. SELECT * FROM darbuotojas WHERE vardas LIKE 'S%';
+--12. SELECT vardas, dirbanuo, gimimometai FROM darbuotojas WHERE dirbanuo NOT BETWEEN '2009-10-30' and '2012-11-11';
+--13. SELECT vardas, pavarde, gimimometai FROM darbuotojas ORDER BY gimimometai;
+--14. SELECT vardas, pavarde, gimimometai FROM darbuotojas ORDER BY gimimometai DESC;
+ --15. SELECT MAX(projektas_id), MIN(projektas_id) FROM darbuotojas;
+-- Išrinkite duomenis apie projektą ir kiek tame projekte yra priskirta žmonių iš lentelės DARBUOTOJAS (projekto numeris ir skaičius kiek dalyvauja žmonių).
+--SELECT COUNT(*) FROM darbuotojas GROUP BY projektas_id = 1;
+16. SELECT projektas_id, count(vardas)  FROM sys.darbuotojas 
+	GROUP BY projektas_id;
+
+17. SELECT projektas_id, pareigos, count(projektas_id) FROM sys.darbuotojas 
+	GROUP BY projektas_id;
+
+18. SELECT projektas_id, pareigos, count(projektas_id) AS Darbuotoju_kiekis FROM sys.darbuotojas 
+	Group by PROJEKTAS_ID
+    	Having Darbuotoju_kiekis > 2;
+
+19. SELECT projektas_id, pareigos, count(PAREIGOS) AS Kiekis_Pareigu FROM sys.darbuotojas 
+	Where PAREIGOS REGEXP  ('Test') OR PAREIGOS REGEXP  ('Prog') OR PAREIGOS REGEXP  ('Proj')
+	Group by pareigos
+    	ORDER BY projektas_id;
+20. SELECT VARDAS, COUNT(distinct(VARDAS)) AS Unique_Name FROM sys.darbuotojas group by VARDAS;
+21. SELECT PROJEKTAS_ID, COUNT(distinct(VARDAS)) AS Unique_Name FROM sys.darbuotojas group by PROJEKTAS_ID;
