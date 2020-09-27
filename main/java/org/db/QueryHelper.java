@@ -2,5 +2,6 @@ package org.db;
 
 
 public class QueryHelper {
+    String helper;g
     public static final String CUSTOMER_TABLE_REGISTRATION = "INSERT INTO CUSTOMER(CUST_NAME, CUST_LASTNAME, GENDER, NATIONALITY, BIRTHDATE, DATE_BECAME_CUSTOMER, OTHER_DETAIL) VALUES(";
 }
