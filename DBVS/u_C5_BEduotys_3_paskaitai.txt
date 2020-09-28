@@ -1,0 +1,50 @@
+1. Išrinkite darbuotojų vardus ir pavardes kartu su projekto pavadinimu, kuriame jie dirba.
+select VARDAS, PAVARDE, PAVADINIMAS
+from DARBUOTOJAS join PROJEKTAS on DARBUOTOJAS.PROJEKTAS_ID = PROJEKTAS.ID;
+
+2. Išsirinkite darbuotojų dirbančių projekte Kaunas vardus, pavardes ir projekto pavadinimą.
+select VARDAS, PAVARDE, PAVADINIMAS
+from DARBUOTOJAS join PROJEKTAS on DARBUOTOJAS.PROJEKTAS_ID = PROJEKTAS.ID where PAVADINIMAS = 'Kaunas';
+
+3. Išrinkite visus projekto Registrų Centras vykdytojus dirbančius Testavimo skyriuje.
+select VARDAS, PAVARDE,PAREIGOS ,PAVADINIMAS
+from DARBUOTOJAS join PROJEKTAS on DARBUOTOJAS.PROJEKTAS_ID = PROJEKTAS.ID 
+where PAVADINIMAS = 'Registrų Centras' and PAREIGOS = 'Testuotojas';
+
+4. Išrinkite visas moteris dirbančias projekte Izola ir išveskite į ekraną jų vardus, pavardes ir projekto pavadinimą
+select VARDAS, PAVARDE ,PAVADINIMAS
+from DARBUOTOJAS join PROJEKTAS on DARBUOTOJAS.PROJEKTAS_ID = PROJEKTAS.ID where PAVADINIMAS = 'Izola' and VARDAS LIKE '%a';
+
+5. Išrinkite skyrių pavadinimus su juose dirbančių darbuotojų skaičiumi.
+select PAVADINIMAS, COUNT(PAREIGOS) AS Kiekis_Darbuotju
+from DARBUOTOJAS join PROJEKTAS on DARBUOTOJAS.PROJEKTAS_ID = PROJEKTAS.ID where PROJEKTAS_ID=ID group by PAVADINIMAS;
+
+6. Apribokite #5 užklausos rezultatą taip, kad rodytų tik tuos skyrius kur dirba bent 5 darbuotojai.
+select PAVADINIMAS, COUNT(PAREIGOS) AS Kiekis_Darbuotju
+    from DARBUOTOJAS 
+    join PROJEKTAS on DARBUOTOJAS.PROJEKTAS_ID = PROJEKTAS.ID 
+    where PROJEKTAS_ID=ID 
+    group by PAVADINIMAS 
+    having Kiekis_Darbuotju>4;
+
+7. Išrinkite darbuotojus (vardus, pavardes) kartu su skyrių, kuriuose jie dirba pavadinimais, tačiau nesančius tų skyrių vadovais
+select VARDAS, PAVARDE ,SKYRIUS_PAVADINIMAS, PAREIGOS
+from DARBUOTOJAS join SKYRIUS on DARBUOTOJAS.SKYRIUS_PAVADINIMAS = SKYRIUS.PAVADINIMAS GROUP BY VARDAS, PAVARDE 
+HAVING PAREIGOS != 'Projektu vadovas';
+
+8. Sukurkite naują įrašą lentelėje “DARBUOTOJAS” (asmens kodas: 38807117896, vardas: Pranas, pavardė:Logis, Dirba nuo: 2009-11-12, 
+gimimo metai: 1988-11-14, pareigos: null, skyrius_pavadinimas: null, projektas_id: null).
+INSERT INTO DARBUOTOJAS (ASMENSKODAS, VARDAS, PAVARDE, DIRBANUO, GIMIMOMETAI)
+VALUES (38807117896, 'Pranas', 'Logis', '2009-11-12', '1988-11-14');
+
+9. Išrinkite darbuotojų vardus, pavardes ir skyriaus pavadinimą. Rodykite, net ir tuos darbuotojus, kurie nedirba jokiame skyriuje 
+(skyriaus pavadinimą pasiimkite iš lentelės SKYRIUS)
+select VARDAS, PAVARDE ,PAVADINIMAS, PAREIGOS
+from DARBUOTOJAS left join SKYRIUS on DARBUOTOJAS.SKYRIUS_PAVADINIMAS = SKYRIUS.PAVADINIMAS;
+
+10. 1# punkto užklausą pataisykite taip, kad rodytų tik tuos vardus ir projektų pavadinimus kuriuose dirba daugiau nei 4 darbuotojai.
+
+SELECT VARDAS, PAVARDE,PAVADINIMAS
+FROM DARBUOTOJAS JOIN PROJEKTAS ON PROJEKTAS_ID = ID
+WHERE PROJEKTAS_ID
+IN (SELECT PROJEKTAS_ID FROM DARBUOTOJAS GROUP BY PROJEKTAS_ID HAVING COUNT (*) > 4);

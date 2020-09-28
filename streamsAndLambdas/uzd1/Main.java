@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Main {
+public class Main1 {
     public static void main(String[] args) {
         List<String> list = new ArrayList<>();
         list.add("1");
@@ -33,5 +33,6 @@ public class Main {
                 .collect(Collectors.toList());
         sortedList.forEach(System.out::println);*/
     }
+
 }
 
